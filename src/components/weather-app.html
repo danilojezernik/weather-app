@@ -1,0 +1,56 @@
+<div><h3 class="text-center pt-4">⬇ Trenutno iskani ⬇</h3>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" v-model="mesto" @keyup.enter="pridobiWeather"
+               placeholder="Vnesite ime mesta za prikaz rezultatov">
+        <span class="input-group-text">Za prikaz iskanega vnosa pritisnite ENTER</span>
+    </div>
+    <div v-if="typeof pridobljeniPodatki.main !== `undefined`">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Mesto</th>
+                <th scope="col">Temperatura</th>
+                <th scope="col">Občutiti se kot</th>
+                <th scope="col">Temp. max</th>
+                <th scope="col">Temp. min</th>
+                <th scope="col">Vlažnost</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ pridobljeniPodatki.name }}</td>
+                <td>{{ pridobljeniPodatki.main.temp }} &#8451</td>
+                <td>{{ pridobljeniPodatki.main.feels_like }} &#8451</td>
+                <td>{{ pridobljeniPodatki.main.temp_min }} &#8451</td>
+                <td>{{ pridobljeniPodatki.main.temp_max }} &#8451</td>
+                <td>{{ pridobljeniPodatki.main.humidity }} %</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<h3 class="text-center pt-4">⬇ Zgodovina iskanj ⬇</h3>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Mesto</th>
+            <th scope="col">Temperatura</th>
+            <th scope="col">Občutiti se kot</th>
+            <th scope="col">Temp. max</th>
+            <th scope="col">Temp. min</th>
+            <th scope="col">Vlažnost</th>
+        </tr>
+        </thead>
+        <tbody v-for="(item, index) in zgodovina" :key="index">
+        <tr @click="uporabiWeather(index)" v-if="typeof item.main !== `undefined`">
+            <td>{{ item.name }}</td>
+            <td>{{ item.main.temp }} &#8451</td>
+            <td>{{ item.main.feels_like }} &#8451</td>
+            <td>{{ item.main.temp_max }} &#8451</td>
+            <td>{{ item.main.temp_min }} &#8451</td>
+            <td>{{ item.main.humidity }} %</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
